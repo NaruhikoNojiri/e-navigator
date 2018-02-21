@@ -3,12 +3,24 @@
   <head>
     <title>ENavigator</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
+    <header>
+      <ul>
+        <% if user_signed_in? %>
+          <li><%= link_to "マイページ", edit_user_registration_path %></li>
+          <li><%= link_to "ユーザー一覧", users_path %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "ログイン", new_user_session_path %></li>
+          <li><%= link_to "サインアップ", new_registration_path(resource_name) %></li>
+        <% end %>
+      </ul>
+    </header>
     <%= yield %>
   </body>
 </html>
